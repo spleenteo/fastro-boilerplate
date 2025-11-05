@@ -1,6 +1,6 @@
 # 1) Mission & Scope
 
-Build and maintain an editorial website that:
+This project is named "Fastro", a boilerplate to build and maintain an editorial website that:
 
 - Uses **Astro + Tailwind + Iconify + DatoCMS + Vercel + npm**.
 - Is written in **TypeScript** and consumes **GraphQL** data.
@@ -12,6 +12,16 @@ Build and maintain an editorial website that:
 - Create a **solid, maintainable structure** that the team can evolve over time.
 - **Follow** the guidelines defined under `/docs`.
 - **Continuously update documentation** where you have permission (see Permissions & File Policy).
+
+In addition to the documentation files, If you need real working examples, you can rely on these repos to get inspired, considering them as best practices:
+
+- https://github.com/datocms/astro-starter-kit/tree/main
+- https://github.com/voorhoede/head-start
+- https://github.com/datocms/astro-website
+
+Also in the `/head-start` folder you can find files, scripts and logic often mentioned in the docuemntation file. This folder is temp, just to help you in understanding, copying and get to the point faster. From this project, compeltely ignore everything about deploy on Cloudflare, testing and overcomplicated part not aligne with the scope of Fastro.
+
+
 
 ## Out of Scope / Never Do
 
@@ -75,4 +85,4 @@ Environment variables for CDA/CMA tokens are defined in `datocms.json`; ensure t
 
 # Interaction with humans
 
-Even if you are running with lot of permissions in wiritng mode, feel free to ask questions to clarify the main point to complete the request.
+Even if you are running with lot of permissions in wiritng mode, feel free to ask questions to clarify the requests asking for additional details.
