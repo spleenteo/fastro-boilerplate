@@ -9,6 +9,7 @@ node_modules/
 DATOCMS.md
 .wrangler
 .netlify
+head-start/
 
 # logs
 npm-debug.log*
