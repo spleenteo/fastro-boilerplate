@@ -1,0 +1,36 @@
+---
+import { ButtonBlock } from '~/components/blocks/ButtonBlock';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
+import type { HeroBlockFragmentData } from './fragments';
+
+interface Props {
+  block: HeroBlockFragmentData & {
+    id: string;
+    __typename: 'HeroBlockRecord';
+  };
+}
+
+const { block } = Astro.props;
+const hasButtons = Boolean(block.buttons?.length);
+---
+
+<section>
+  {block.heroTitle && <h2>{block.heroTitle}</h2>}
+  {block.heroSubtitle && <div set:html={block.heroSubtitle} />}
+  {
+    block.heroImage?.responsiveImage && (
+      <figure>
+        <ResponsiveImage data={block.heroImage.responsiveImage} />
+      </figure>
+    )
+  }
+  {
+    hasButtons && block.buttons && (
+      <div>
+        {block.buttons.map((button) => (
+          <ButtonBlock block={button} key={button.id} />
+        ))}
+      </div>
+    )
+  }
+</section>

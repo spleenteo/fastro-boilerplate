@@ -1,13 +1,12 @@
 ---
 import Layout from '~/layouts/Layout.astro';
-import Blocks from '~/components/blocks/Blocks.astro';
-import { BlocksFragments } from '~/components/blocks/fragments';
-import type { AnyBlockRecord } from '~/components/blocks/types';
+import { HeroBlock, HeroBlockFragment } from '~/components/blocks/HeroBlock';
+import type { HeroBlockFragmentData } from '~/components/blocks/HeroBlock';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
 import { isDraftModeEnabled } from '~/lib/draftMode';
-import { defaultLocale, isSupportedLocale, supportedLocales } from '~/lib/locales';
+import { defaultLocale, isSupportedLocale, supportedLocales, type SiteLocale } from '~/lib/locales';
 
 export async function getStaticPaths() {
   return supportedLocales.map((locale) => ({ params: { locale } }));
@@ -20,13 +19,18 @@ if (!isSupportedLocale(requestedLocale)) {
   return Astro.redirect(`/${defaultLocale}/`);
 }
 
-const locale = requestedLocale;
+const locale = requestedLocale as SiteLocale;
+
+type HeroBlockRecord = HeroBlockFragmentData & {
+  __typename: 'HeroBlockRecord';
+};
 
 interface HomePageQueryResult {
   page: {
     title: string;
+    subtitle?: string | null;
     _seoMetaTags: TagFragmentData[];
-    bodyBlocks: AnyBlockRecord[];
+    sections?: HeroBlockRecord[] | null;
   } | null;
 }
 
@@ -34,32 +38,23 @@ const query = /* GraphQL */ `
   query HomePage($locale: SiteLocale!) {
     page: homePage(locale: $locale) {
       title
+      subtitle
       _seoMetaTags {
         ...TagFragment
       }
-      bodyBlocks {
+      sections {
         __typename
-        id
-        ...ActionBlockFragment
-        ...EmbedBlockFragment
-        ...GroupingBlockFragment
-        ...ImageBlockFragment
-        ...PagePartialBlockFragment
-        ...TableBlockFragment
-        ...TextBlockFragment
-        ...TextImageBlockFragment
-        ...VideoBlockFragment
-        ...VideoEmbedBlockFragment
+        ...HeroBlockFragment
       }
     }
   }
 
   ${TagFragment}
-  ${BlocksFragments}
+  ${HeroBlockFragment}
 `;
 
 const variables = { locale } as const;
-const { page } = await executeQuery<HomePageQueryResult>(query, {
+const { page } = await executeQuery<HomePageQueryResult, typeof variables>(query, {
   variables,
   includeDrafts: draftModeEnabled,
 });
@@ -76,9 +71,14 @@ if (!page) {
   <header>
     <p>Locale: {locale}</p>
     <h1>{page.title}</h1>
+    {page.subtitle && <p>{page.subtitle}</p>}
   </header>
 
-  <Blocks blocks={page.bodyBlocks ?? []} />
+  {
+    page.sections?.map((block) =>
+      block.__typename === 'HeroBlockRecord' ? <HeroBlock block={block} /> : null,
+    )
+  }
 
   <DraftModeQueryListener query={query} variables={variables} />
 </Layout>

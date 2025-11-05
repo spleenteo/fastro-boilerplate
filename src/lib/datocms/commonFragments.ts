@@ -4,7 +4,7 @@
  */
 
 export const TagFragment = /* GraphQL */ `
-  fragment TagFragment on Tag @_unmask {
+  fragment TagFragment on Tag {
     tag
     attributes
     content

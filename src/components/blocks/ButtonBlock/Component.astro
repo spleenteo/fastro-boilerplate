@@ -1,0 +1,21 @@
+---
+import type { ButtonBlockFragmentData } from './fragments';
+
+interface Props {
+  block: ButtonBlockFragmentData & {
+    id: string;
+    __typename: 'ButtonBlockRecord';
+  };
+}
+
+const { block } = Astro.props;
+const label = block.label ?? block.url ?? 'Learn more';
+const href = block.url ?? '#';
+---
+
+<p>
+  <a href={href}>
+    {label}
+  </a>
+  {typeof block.primary === 'boolean' && <span> ({block.primary ? 'primary' : 'secondary'})</span>}
+</p>

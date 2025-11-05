@@ -1,126 +1,49 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { HeroBlock, HeroBlockFragment } from '~/components/blocks/HeroBlock';
+import type { HeroBlockFragmentData } from '~/components/blocks/HeroBlock';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
-import { StructuredText } from '@datocms/astro';
-import type {
-  StructuredTextGraphQlResponse,
-  StructuredTextGraphQlResponseRecord,
-} from 'react-datocms';
-
-import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
-
 import { isDraftModeEnabled } from '~/lib/draftMode';
-import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+import { defaultLocale } from '~/lib/locales';
 
-import { PageInline } from '~/components/inlineRecord/PageInline';
-import {
-  PageInlineFragment,
-  type PageInlineFragmentData,
-} from '~/components/inlineRecord/PageInline/fragments';
-
-import { PageLink } from '~/components/linkToRecord/PageLink';
-import {
-  PageLinkFragment,
-  type PageLinkFragmentData,
-} from '~/components/linkToRecord/PageLink/fragments';
-
-import { VideoBlock } from '~/components/blocks/VideoBlock';
-import {
-  VideoBlockFragment,
-  type VideoBlockFragmentData,
-} from '~/components/blocks/VideoBlock/fragments';
-
-import { ImageBlock } from '~/components/blocks/ImageBlock';
-import {
-  ImageBlockFragment,
-  type ImageBlockFragmentData,
-} from '~/components/blocks/ImageBlock/fragments';
-
-import { ImageGalleryBlock } from '~/components/blocks/ImageGalleryBlock';
-import {
-  ImageGalleryBlockFragment,
-  type ImageGalleryBlockFragmentData,
-} from '~/components/blocks/ImageGalleryBlock/fragments';
-
-type BaseRecord<TType extends string> = StructuredTextGraphQlResponseRecord & {
-  __typename: TType;
+type HeroBlockRecord = HeroBlockFragmentData & {
+  __typename: 'HeroBlockRecord';
 };
 
-type ImageBlockRecord = BaseRecord<'ImageBlockRecord'> & ImageBlockFragmentData;
-type ImageGalleryBlockRecord = BaseRecord<'ImageGalleryBlockRecord'> &
-  ImageGalleryBlockFragmentData;
-type VideoBlockRecord = BaseRecord<'VideoBlockRecord'> & VideoBlockFragmentData;
-
-type StructuredTextBlockRecord = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord;
-
-type StructuredTextLinkRecord = PageLinkFragmentData | PageInlineFragmentData;
-
-type BasicPageStructuredText = StructuredTextGraphQlResponse<
-  StructuredTextBlockRecord,
-  StructuredTextLinkRecord
->;
-
-interface BasicPageQueryResult {
+interface HomePageQueryResult {
   page: {
-    _seoMetaTags: TagFragmentData[];
     title: string;
-    _firstPublishedAt: string;
-    structuredText: BasicPageStructuredText;
+    subtitle?: string | null;
+    _seoMetaTags: TagFragmentData[];
+    sections?: HeroBlockRecord[] | null;
   } | null;
 }
 
-/**
- * GraphQL query executed for this route to generate the page content and
- * metadata.
- */
 const query = /* GraphQL */ `
-  query BasicPageQuery {
-    page {
+  query HomePage($locale: SiteLocale!) {
+    page: homePage(locale: $locale) {
+      title
+      subtitle
       _seoMetaTags {
         ...TagFragment
       }
-      title
-      _firstPublishedAt
-      structuredText {
-        value
-        blocks {
-          ... on RecordInterface {
-            id
-            __typename
-          }
-          ... on ImageBlockRecord {
-            ...ImageBlockFragment
-          }
-          ... on ImageGalleryBlockRecord {
-            ...ImageGalleryBlockFragment
-          }
-          ... on VideoBlockRecord {
-            ...VideoBlockFragment
-          }
-        }
-        links {
-          ... on RecordInterface {
-            id
-            __typename
-          }
-          ...PageLinkFragment
-          ...PageInlineFragment
-        }
+      sections {
+        __typename
+        ...HeroBlockFragment
       }
     }
   }
 
   ${TagFragment}
-  ${ImageBlockFragment}
-  ${ImageGalleryBlockFragment}
-  ${VideoBlockFragment}
-  ${PageLinkFragment}
-  ${PageInlineFragment}
+  ${HeroBlockFragment}
 `;
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const { page } = await executeQuery<BasicPageQueryResult>(query, {
+const variables = { locale: defaultLocale } as const;
+const { page } = await executeQuery<HomePageQueryResult, typeof variables>(query, {
+  variables,
   includeDrafts: draftModeEnabled,
 });
 
@@ -133,49 +56,17 @@ if (!page) {
 ---
 
 <Layout additionalSeo={page._seoMetaTags}>
-  <h1>{page.title}</h1>
-  {
-    /*
-     * Structured Text is a JSON format similar to HTML, but with the advantage
-     * of a significantly reduced and tailored set of possible tags
-     * for editorial content, along with the capability to create hyperlinks
-     * to other DatoCMS records and embed custom DatoCMS blocks.
-     */
-  }
-  <StructuredText
-    data={page.structuredText}
-    blockComponents={/*
-     * If the structured text embeds any blocks, it's up to you to decide
-     * how to render them:
-     */
-    {
-      ImageBlockRecord: ImageBlock,
-      ImageGalleryBlockRecord: ImageGalleryBlock,
-      VideoBlockRecord: VideoBlock,
-    }}
-    linkToRecordComponents={/*
-     * If the structured text includes a link to another DatoCMS record,
-     * it's your decision to determine where the link should lead, or if
-     * you wish to customize its appearance:
-     */
-    {
-      PageRecord: PageLink,
-    }}
-    inlineRecordComponents={/*
-     * If the structured text includes a reference to another DatoCMS
-     * record, it's up to you to decide how to render them:
-     */
-    {
-      PageRecord: PageInline,
-    }}
-    nodeOverrides={/*
-     * You can also override the default rendering of certain nodes.
-     * In this case, we want to tweak the way headings (h1-h6) are rendered.
-     */ {
-      heading: HeadingWithAnchorLink,
-    }}
-  />
-  <footer>Published at {page._firstPublishedAt}</footer>
+  <header>
+    <h1>{page.title}</h1>
+    {page.subtitle && <p>{page.subtitle}</p>}
+    <p>Locale: {defaultLocale}</p>
+  </header>
 
-  <DraftModeQueryListener query={query} />
+  {
+    page.sections?.map((block) =>
+      block.__typename === 'HeroBlockRecord' ? <HeroBlock block={block} /> : null,
+    )
+  }
+
+  <DraftModeQueryListener query={query} variables={variables} />
 </Layout>

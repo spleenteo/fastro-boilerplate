@@ -1,5 +1,5 @@
 ---
-agent_edit: false
+agent_edit: true
 scope: Fastro is based on and extends the [Astro project structure](https://docs.astro.build/en/core-concepts/project-structure/)
 ---
 
