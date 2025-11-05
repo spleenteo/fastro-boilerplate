@@ -1,18 +1,18 @@
-# CMS Data Loading
+---
+agent_edit: false 
+scope: Fastros provides loaders and helpers to fetch content from DatoCMS.
+---
 
-**Estros provides loaders and helpers to fetch content from DatoCMS.**
+# CMS Data Loading
 
 ## Configuration
 
-Estro supports the use of [primary and sandbox environments in DatoCMS](https://www.datocms.com/docs/scripting-migrations/introduction). This enables feature branches to use a different environment than the main branch. You need to set the DatoCMS environment where content should be fetched from in [`/datocms-environment.ts`](../datocms-environment.ts):
+Fastro supports the use of DatoCMS enviroments. This enables feature branches to use a different environment than the main branch. You need to set the DATOCMS_ENVIROMENT environment variable in `.env`
 
-```ts
-export const datocmsEnvironment = 'your-environment-name';
-```
 
 ## GraphQL files
 
-Estro uses the [DatoCMS Content Delivery API](https://www.datocms.com/docs/content-delivery-api), which uses [GraphQL](https://graphql.org/). Estro has a pre-configured GraphQL loader, so you can use and directly import `.graphql` files. As a convention Estro puts [GraphQL Query](https://graphql.org/learn/queries/) files (like `_page-name.query.graphql`) directly next to their related Astro pages, and [GraphQL Fragment](https://graphql.org/learn/queries/) files (like `block-name.fragment.graphql`) directly next to their related block components:
+Fastro uses the [DatoCMS Content Delivery API](https://www.datocms.com/docs/content-delivery-api), which uses [GraphQL](https://graphql.org/). Fastro has a pre-configured GraphQL loader, so you can use and directly import `.graphql` files. As a convention Fastro puts [GraphQL Query](https://graphql.org/learn/queries/) files (like `_page-name.query.graphql`) directly next to their related Astro pages, and [GraphQL Fragment](https://graphql.org/learn/queries/) files (like `block-name.fragment.graphql`) directly next to their related block components:
 
 ```
 src/
@@ -76,7 +76,7 @@ import query from './_index.query.graphql';
 console.log(typeof query); // DocumentNode
 ```
 
-Estro automatically generates TypeScript types for all your GraphQL files, which you can import:
+Fastro expects TypeScript types for all your GraphQL files, which you can import:
 
 ```ts
 import type { ImageBlockFragment, PageQuery, PageRecord } from '@lib/datocms/types';
@@ -84,7 +84,7 @@ import type { ImageBlockFragment, PageQuery, PageRecord } from '@lib/datocms/typ
 
 ## DatoCMS requests
 
-Estro provides a generic `datocmsRequest()` helper to fetch data using the [DatoCMS Content Delivery API](https://www.datocms.com/docs/content-delivery-api). This function automatically uses the DatoCMS environment you've [configured](#configuration). It expects a `query` like the one that can be imported from a [`.graphql` file](#graphql-files), and supports passing `variables` to that query.
+Fastro provides a generic `datocmsRequest()` helper to fetch data using the [DatoCMS Content Delivery API](https://www.datocms.com/docs/content-delivery-api). This function automatically uses the DatoCMS environment you've [configured](#configuration). It expects a `query` like the one that can be imported from a [`.graphql` file](#graphql-files), and supports passing `variables` to that query.
 
 Example usage:
 
@@ -101,27 +101,9 @@ const { page } = (await datocmsRequest<PageQuery>({
 ---
 ```
 
-If you want to use `datocmRequest()` without importing a [`.graphql` file](#graphql-files), you can use the `parse` helper to change a string into a DocumentNode expected by the function:
-
-```ts
-import parse from 'graphql';
-
-const query = parse(/* graphql */ `
-  query Example {
-    _site {
-      globalSeo {
-        siteName
-      }
-    }
-  }
-`);
-
-const data = await datocmsRequest({ query });
-```
-
 ## DatoCMS collections
 
-Estro provides a `datocmsCollection()` helper to retrieve all records of a collection. DatoCMS limits requests to 100 records. This function uses `datocmsRequest()` combined with pagination, to get all records even if there are more than 100. This is especialy useful when defining [`getStaticPaths()` in an Astro template](https://docs.astro.build/en/core-concepts/routing/#static-ssg-mode). The `datocmsCollection()` allows you to provide a fragment, so you can define what data you want for each record.
+Fastro provides a `datocmsCollection()` helper to retrieve all records of a collection. DatoCMS limits requests up to 500 records (100 by default). This function uses `datocmsRequest()` combined with pagination, to get all records even if there are more than 500. This is especialy useful when defining [`getStaticPaths()` in an Astro template](https://docs.astro.build/en/core-concepts/routing/#static-ssg-mode). The `datocmsCollection()` allows you to provide a fragment, so you can define what data you want for each record.
 
 Simplified example without types:
 
@@ -156,7 +138,3 @@ export async function getStaticPaths() {
 }
 ---
 ```
-
-## DatoCMS search
-
-See [`datocmsSearch()` in the Search documentation](./search.md#search-lib-function).
