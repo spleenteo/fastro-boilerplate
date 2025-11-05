@@ -1,63 +1,29 @@
-<!--datocms-autoinclude-header start-->
+# Fastro
 
-<a href="https://www.datocms.com/"><img src="https://www.datocms.com/images/full_logo.svg" height="60"></a>
+Fastro is an editorial website blueprint built to help teams launch content-driven experiences quickly while keeping room to grow. It pairs the flexibility of Astro with an editor-friendly workflow so writers, designers, and developers can collaborate without friction.
 
-👉 [Visit the DatoCMS homepage](https://www.datocms.com) or see [What is DatoCMS?](#what-is-datocms)
+This project is heavily inspired and copied from Head-Start, a boilerplate created by the NL agency VoorHoede. Their version is undoubtedly more extended and powerful, incorporating numerous well-reasoned best practices. However, for my purpose, that’s excessive, so Fastro aims to obtain only some inspiration.
 
----
+## Why Fastro
 
-# Estro
+- Start from a clear content architecture, ready for multi-language storytelling.
+- Reuse thoughtfully named blocks and helpers so pages stay consistent.
+- Keep documentation close to the code base, making it easy for new teammates to join.
 
-**Base setup on top of headless services to help you quickly start a new website**
+## Explore the Guidebook
 
-This project is highly inspired and copied by Head-Start, a boilerplate make by the NL agency VoorHoede
-Their versione is defenitely more extended and powerful, plenty of well reasoned good practices.
-For my goal, that's too much, so Fastro is trying to get just some inspiration.
+- **Project Structure:** how folders, pages, and assets are organised — see `docs/project-structure.md`.
+- **Content Modelling:** naming conventions, blocks, and structured content tips — see `docs/cms-content-modelling.md`.
+- **Data Loading:** learn how Fastro talks to DatoCMS and wires GraphQL fragments — see `docs/cms-data-loading.md`.
+- **Design Foundations:** review icon, asset, and accessibility guidelines — start with `docs/assets.md` and `docs/accessibility.md`.
+- **SEO & Search:** discover how metadata, previews, and search experiences are handled — check `docs/seo.md` and `docs/search.md`.
+- **Testing & Preview:** understand draft previews, live updates, and sanity checks — visit `docs/testing.md` and `docs/preview-mode.md`.
+- **Decision Log:** track why choices were made and what’s coming next — browse `docs/decision-log/`.
 
-- [Inteview](https://www.datocms.com/casual-chats/focusing-on-flexibility-extensibility-with-plugins-and-head-start)
-- [Head Start Repo](https://github.com/voorhoede/head-start)
+## Contribute Thoughtfully
 
-Also, this project originally derives from the official DatoCMS-Astro template https://www.datocms.com/marketplace/starters/astro-starter-kit
+Before changing anything, skim the relevant document in `/docs`. If a topic feels under-specified, jot it down in `docs/TODO.md` so the next person has a clearer path forward.
 
-## Philosophy
+## Licensing
 
-- Provide a generic template to help develop new websites (not web apps) faster.
-- Provide a pre-defined setup for composable pages with common components.
-- Provide pre-configured services like a CMS and deployment platform.
-- Support common needs like internationalisation (i18n), SEO, redirects and analytics.
-- Provide functional interactivity without a JS framework (React, Vue, Svelte, etc)\*.
-
-## Architecture
-
-The site is created as lightweight progressively enhanced website connected to a headless CMS:
-
-- [Astro](https://astro.build/) - web framework to structure this project. Astro is selected because it embraces web standards, is designed for performance, and supports all our favourite UI frameworks (React, Vue and Svelte).
-- [DatoCMS](https://www.datocms.com/) - a headless CMS is connected to manage web content. DatoCMS is selected for its modular and structured content options, advanced image service, multi-language support and GraphQL API.
-
-## Getting started
-
-First create a project on DatoCMS and get the API Tokens to by copied in `.env` from `.env.sample`
-
-Then run
-
-```bash
-npm install
-npm run dev
-```
-
-## Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command (`npm run ...`) | Action                                                               |
-| :---------------------- | :------------------------------------------------------------------- |
-| `dev`                   | Starts local dev server at `localhost:4321` (head in T9)             |
-| `build`                 | Build your production site to `./dist/`                              |
-| `preview`               | Preview your build locally, before deploying                         |
-| `astro ...`             | Run commands like `astro add` (see `astro -- --help`)                |
-| `lint`                  | Check code style and valide HTML output                              |
-| `test`                  | Runs the test suite, individual tests are available using `test:...` |
-
-## License
-
-Released under [ISC License](./LICENSE.md).
+Fastro is shared under the [ISC License](./LICENSE.md). Use it, shape it, and tell us what you build with it.
