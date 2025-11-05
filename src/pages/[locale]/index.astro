@@ -1,0 +1,84 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Blocks from '~/components/blocks/Blocks.astro';
+import { BlocksFragments } from '~/components/blocks/fragments';
+import type { AnyBlockRecord } from '~/components/blocks/types';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+import { executeQuery } from '~/lib/datocms/executeQuery';
+import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
+import { isDraftModeEnabled } from '~/lib/draftMode';
+import { defaultLocale, isSupportedLocale, supportedLocales } from '~/lib/locales';
+
+export async function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
+const requestedLocale = Astro.params.locale;
+
+if (!isSupportedLocale(requestedLocale)) {
+  return Astro.redirect(`/${defaultLocale}/`);
+}
+
+const locale = requestedLocale;
+
+interface HomePageQueryResult {
+  page: {
+    title: string;
+    _seoMetaTags: TagFragmentData[];
+    bodyBlocks: AnyBlockRecord[];
+  } | null;
+}
+
+const query = /* GraphQL */ `
+  query HomePage($locale: SiteLocale!) {
+    page: homePage(locale: $locale) {
+      title
+      _seoMetaTags {
+        ...TagFragment
+      }
+      bodyBlocks {
+        __typename
+        id
+        ...ActionBlockFragment
+        ...EmbedBlockFragment
+        ...GroupingBlockFragment
+        ...ImageBlockFragment
+        ...PagePartialBlockFragment
+        ...TableBlockFragment
+        ...TextBlockFragment
+        ...TextImageBlockFragment
+        ...VideoBlockFragment
+        ...VideoEmbedBlockFragment
+      }
+    }
+  }
+
+  ${TagFragment}
+  ${BlocksFragments}
+`;
+
+const variables = { locale } as const;
+const { page } = await executeQuery<HomePageQueryResult>(query, {
+  variables,
+  includeDrafts: draftModeEnabled,
+});
+
+if (!page) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+---
+
+<Layout additionalSeo={page._seoMetaTags}>
+  <header>
+    <p>Locale: {locale}</p>
+    <h1>{page.title}</h1>
+  </header>
+
+  <Blocks blocks={page.bodyBlocks ?? []} />
+
+  <DraftModeQueryListener query={query} variables={variables} />
+</Layout>

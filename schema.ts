@@ -1,186 +1,159 @@
 import type { ItemTypeDefinition } from '@datocms/cma-client';
 type EnvironmentSettings = {
-  locales: 'en';
+  locales: 'it' | 'en';
 };
-export type TextImageBlock = ItemTypeDefinition<
+export type MenuItem = ItemTypeDefinition<
   EnvironmentSettings,
-  'BRbU6VwTRgmG5SbwUs0rBg',
+  'Af5tRzXvRaS_Mw2kXhqTtA',
   {
-    text: {
-      type: 'structured_text';
-      blocks: ActionBlock | ImageBlock | VideoEmbedBlock | TableBlock;
-      inline_blocks: File | Page | HomePage;
+    label: {
+      type: 'string';
     };
-    image: {
+    page: {
+      type: 'link';
+    };
+  }
+>;
+export type ImageGalleryBlock = ItemTypeDefinition<
+  EnvironmentSettings,
+  'CoOdvsbUR8GLtGeuenXzMw',
+  {
+    assets: {
+      type: 'gallery';
+    };
+  }
+>;
+export type HeroBlock = ItemTypeDefinition<
+  EnvironmentSettings,
+  'DBdGqinIQxWWocOQY0i4-Q',
+  {
+    display_options: {
+      type: 'string';
+    };
+    hero_image: {
       type: 'file';
     };
-    layout: {
+    hero_title: {
       type: 'string';
     };
-  }
->;
-export type GroupingItem = ItemTypeDefinition<
-  EnvironmentSettings,
-  'BeM4dW2OQYWKc9iBZUyMeg',
-  {
-    title: {
-      type: 'string';
-    };
-    blocks: {
-      type: 'rich_text';
-      blocks:
-        | TextImageBlock
-        | ActionBlock
-        | TextBlock
-        | VideoBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
-    };
-  }
->;
-export type PhoneLink = ItemTypeDefinition<
-  EnvironmentSettings,
-  'C5fWG5CYRJ69oqaP6CjYdA',
-  {
-    title: {
-      type: 'string';
-    };
-    phone_number: {
-      type: 'string';
-    };
-    action: {
-      type: 'string';
-    };
-    text: {
+    hero_subtitle: {
       type: 'text';
     };
-    style: {
+    buttons: {
+      type: 'rich_text';
+      blocks: ButtonBlock;
+    };
+  }
+>;
+export type MenuExternalItem = ItemTypeDefinition<
+  EnvironmentSettings,
+  'EANzV1QlRxeTpZ4g555PXg',
+  {
+    label: {
+      type: 'string';
+    };
+    url: {
       type: 'string';
     };
   }
 >;
-export type PagePartial = ItemTypeDefinition<
+export type SocialLink = ItemTypeDefinition<
   EnvironmentSettings,
-  'DAdmJVaoTZKumF9GYBZDfQ',
+  'Gpv6aBidTf2es2lojtCKcA',
   {
+    platform: {
+      type: 'string';
+    };
+    url: {
+      type: 'string';
+    };
+    icon_name: {
+      type: 'string';
+    };
+  }
+>;
+export type HomePage = ItemTypeDefinition<
+  EnvironmentSettings,
+  'JdG722SGTSG_jEB1Jx-0XA',
+  {
+    seo: {
+      type: 'seo';
+      localized: true;
+    };
     title: {
       type: 'string';
       localized: true;
     };
-    blocks: {
-      type: 'rich_text';
-      blocks:
-        | TextImageBlock
-        | ActionBlock
-        | TextBlock
-        | VideoBlock
-        | GroupingBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
+    subtitle: {
+      type: 'text';
       localized: true;
     };
-  }
->;
-export type MenuItemInternal = ItemTypeDefinition<
-  EnvironmentSettings,
-  'FmR0GklXRq-7Ix8-5MaJjw',
-  {
-    title: {
-      type: 'string';
-    };
-    link: {
-      type: 'link';
-    };
-  }
->;
-export type ActionBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  'F60ZY1wFSW2qbvh99poj3g',
-  {
-    items: {
+    sections: {
       type: 'rich_text';
-      blocks: PhoneLink | InternalLink | ExternalLink | EmailLink;
+      blocks: HeroBlock;
     };
   }
 >;
-export type InternalLink = ItemTypeDefinition<
+export type ButtonBlock = ItemTypeDefinition<
   EnvironmentSettings,
-  'GWnhoQDqQoGJj4-sQTVttw',
+  'KfsEo0AXTj-DIGYAXawBzQ',
   {
+    label: {
+      type: 'string';
+    };
+    url: {
+      type: 'string';
+    };
+    primary: {
+      type: 'boolean';
+    };
+  }
+>;
+export type Page = ItemTypeDefinition<
+  EnvironmentSettings,
+  'K5xdS7TzTgaiD00HAEAm1w',
+  {
+    slug: {
+      type: 'slug';
+      localized: true;
+    };
+    seo_settings_social: {
+      type: 'seo';
+      localized: true;
+    };
     title: {
       type: 'string';
+      localized: true;
     };
-    link: {
-      type: 'link';
+    sections: {
+      type: 'rich_text';
+      blocks: HeroBlock;
+      localized: true;
     };
-    style: {
-      type: 'string';
-    };
-  }
->;
-export type File = ItemTypeDefinition<
-  EnvironmentSettings,
-  'GjWw8t-hTFaYYWyc53FeIg',
-  {
-    file: {
-      type: 'file';
-    };
-    locale: {
-      type: 'string';
-    };
-    path: {
-      type: 'string';
-    };
-    title: {
-      type: 'string';
-    };
-  }
->;
-export type TextBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  'PAk40zGjQJCcDXXPgygUrA',
-  {
-    text: {
+    structured_text: {
       type: 'structured_text';
-      blocks:
-        | ActionBlock
-        | VideoBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
-      inline_blocks: File | Page | HomePage;
+      blocks: ImageGalleryBlock | ImageBlock | VideoBlock;
+      inline_blocks: HomePage;
+      localized: true;
     };
   }
 >;
-export type VideoBlock = ItemTypeDefinition<
+export type MenuDropdown = ItemTypeDefinition<
   EnvironmentSettings,
-  'QYfZyBzIRWKxA1MinIR0aQ',
+  'S1dQWJ35QMCGFED-kqQccQ',
   {
-    video_asset: {
-      type: 'file';
-    };
-    title: {
+    static_label: {
       type: 'string';
     };
-    autoplay: {
-      type: 'boolean';
-    };
-    mute: {
-      type: 'boolean';
-    };
-    loop: {
-      type: 'boolean';
-    };
-    tracks: {
-      type: 'links';
+    pages: {
+      type: 'rich_text';
+      blocks: MenuItem;
     };
   }
 >;
 export type Translation = ItemTypeDefinition<
   EnvironmentSettings,
-  'SioauP1GQg2C4U3aVd-FXw',
+  'TKfHJZJWSkaP6EjowCzGNw',
   {
     key: {
       type: 'string';
@@ -191,304 +164,80 @@ export type Translation = ItemTypeDefinition<
     };
   }
 >;
-export type GroupingBlock = ItemTypeDefinition<
+export type FooterMenuBlock = ItemTypeDefinition<
   EnvironmentSettings,
-  'TBuD6qQOSDy6i9dM3T_XEA',
+  'aWqpfWw5TweieoyNSxa-2Q',
   {
-    layout: {
+    widget_label: {
       type: 'string';
     };
-    items: {
+    nav_links: {
       type: 'rich_text';
-      blocks: GroupingItem;
-    };
-  }
->;
-export type VideoTextTrack = ItemTypeDefinition<
-  EnvironmentSettings,
-  'Us90isT5SgeXHuetcEj8eA',
-  {
-    title: {
-      type: 'string';
-    };
-    locale: {
-      type: 'string';
-    };
-    kind: {
-      type: 'string';
-    };
-    file: {
-      type: 'file';
-    };
-  }
->;
-export type EmbedBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  'VZvVfu52RZK81WG0Dxp-FQ',
-  {
-    url: {
-      type: 'string';
-    };
-    data: {
-      type: 'json';
-    };
-  }
->;
-export type PagePartialBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  'V80liDVtRC-UYgd3Sm-dXg',
-  {
-    items: {
-      type: 'links';
-    };
-    layout: {
-      type: 'string';
-    };
-  }
->;
-export type SchemaMigration = ItemTypeDefinition<
-  EnvironmentSettings,
-  'XX0mY71SR5OY1mRZUu6jCg',
-  {
-    name: {
-      type: 'string';
-    };
-  }
->;
-export type NotFoundPage = ItemTypeDefinition<
-  EnvironmentSettings,
-  'X1J3dzBwQXOKTQWRxRaNfA',
-  {
-    title: {
-      type: 'string';
-      localized: true;
-    };
-    body_blocks: {
-      type: 'rich_text';
-      blocks:
-        | TextImageBlock
-        | ActionBlock
-        | TextBlock
-        | VideoBlock
-        | EmbedBlock
-        | PagePartialBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
-      localized: true;
-    };
-  }
->;
-export type ExternalLink = ItemTypeDefinition<
-  EnvironmentSettings,
-  'Yk1ge9eTTf25Iwph1Dx3_g',
-  {
-    title: {
-      type: 'string';
-    };
-    url: {
-      type: 'string';
-    };
-    open_in_new_tab: {
-      type: 'boolean';
-    };
-    style: {
-      type: 'string';
-    };
-  }
->;
-export type ImageBlock = ItemTypeDefinition<
-  EnvironmentSettings,
-  'ZdBokLsWRgKKjHrKeJzdpw',
-  {
-    image: {
-      type: 'file';
+      blocks: MenuItem | MenuExternalItem;
     };
   }
 >;
 export type App = ItemTypeDefinition<
   EnvironmentSettings,
-  'Zrs1dDxCTXKDS0pdgh1yCw',
+  'cnQATVHtQ7SNg4m1zNwmEA',
   {
-    menu_items: {
+    callout_background: {
+      type: 'color';
+    };
+    footer_text: {
+      type: 'structured_text';
+    };
+    nav_items: {
       type: 'rich_text';
-      blocks: MenuItemInternal;
+      blocks: MenuItem | MenuExternalItem | MenuDropdown;
       localized: true;
     };
-    allow_ai_bots: {
-      type: 'boolean';
-    };
-  }
->;
-export type EmailLink = ItemTypeDefinition<
-  EnvironmentSettings,
-  'b90_c2zeS6auRELEzZHNcA',
-  {
-    title: {
-      type: 'string';
-    };
-    email_address: {
-      type: 'string';
-    };
-    email_subject: {
-      type: 'string';
-    };
-    email_body: {
+    callout_text: {
       type: 'text';
     };
-    style: {
-      type: 'string';
-    };
-  }
->;
-export type RedirectRule = ItemTypeDefinition<
-  EnvironmentSettings,
-  'c0S4sIyiRK-EewRhFEFPLA',
-  {
-    from: {
-      type: 'string';
-    };
-    to: {
-      type: 'string';
-    };
-    status_code: {
-      type: 'string';
-    };
-    position: {
-      type: 'integer';
-    };
-  }
->;
-export type Page = ItemTypeDefinition<
-  EnvironmentSettings,
-  'dKQteXkGQKSNL4V4BDpFFg',
-  {
-    title: {
-      type: 'string';
-      localized: true;
-    };
-    slug: {
-      type: 'slug';
-      localized: true;
-    };
-    parent_page: {
-      type: 'link';
-    };
-    seo: {
-      type: 'seo';
-      localized: true;
-    };
-    body_blocks: {
+    footer_links: {
       type: 'rich_text';
-      blocks:
-        | TextImageBlock
-        | ActionBlock
-        | TextBlock
-        | VideoBlock
-        | GroupingBlock
-        | EmbedBlock
-        | PagePartialBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
+      blocks: FooterMenuBlock;
       localized: true;
     };
-  }
->;
-export type HomePage = ItemTypeDefinition<
-  EnvironmentSettings,
-  'e980daKCQPe26oECP5XT8w',
-  {
-    title: {
-      type: 'string';
-      localized: true;
-    };
-    seo: {
-      type: 'seo';
-      localized: true;
-    };
-    body_blocks: {
+    social_links: {
       type: 'rich_text';
-      blocks:
-        | TextImageBlock
-        | ActionBlock
-        | TextBlock
-        | VideoBlock
-        | GroupingBlock
-        | EmbedBlock
-        | PagePartialBlock
-        | ImageBlock
-        | VideoEmbedBlock
-        | TableBlock;
+      blocks: SocialLink;
+    };
+    legal_text: {
+      type: 'structured_text';
       localized: true;
     };
   }
 >;
-export type VideoEmbedBlock = ItemTypeDefinition<
+export type ImageBlock = ItemTypeDefinition<
   EnvironmentSettings,
-  'gezG9nO7SfaiWcWnp-HNqw',
+  'dZOhbVOTSpeaaA-wQMgPCA',
   {
-    video: {
-      type: 'video';
-    };
-    title: {
-      type: 'string';
-    };
-    autoplay: {
-      type: 'boolean';
-    };
-    mute: {
-      type: 'boolean';
-    };
-    loop: {
-      type: 'boolean';
+    asset: {
+      type: 'file';
     };
   }
 >;
-export type TableBlock = ItemTypeDefinition<
+export type VideoBlock = ItemTypeDefinition<
   EnvironmentSettings,
-  '0SxYNS2CR1it_5LHYWuEQg',
+  'duRvS1PrT4u6QGJZUmyINA',
   {
-    title: {
-      type: 'string';
-    };
-    table: {
-      type: 'json';
-    };
-    has_header_row: {
-      type: 'boolean';
-    };
-    has_header_column: {
-      type: 'boolean';
+    asset: {
+      type: 'file';
     };
   }
 >;
 export type AnyBlock =
-  | TextImageBlock
-  | GroupingItem
-  | PhoneLink
-  | MenuItemInternal
-  | ActionBlock
-  | InternalLink
-  | TextBlock
-  | VideoBlock
-  | GroupingBlock
-  | EmbedBlock
-  | PagePartialBlock
-  | ExternalLink
+  | MenuItem
+  | ImageGalleryBlock
+  | HeroBlock
+  | MenuExternalItem
+  | SocialLink
+  | ButtonBlock
+  | MenuDropdown
+  | FooterMenuBlock
   | ImageBlock
-  | EmailLink
-  | VideoEmbedBlock
-  | TableBlock;
-export type AnyModel =
-  | PagePartial
-  | File
-  | Translation
-  | VideoTextTrack
-  | SchemaMigration
-  | NotFoundPage
-  | App
-  | RedirectRule
-  | Page
-  | HomePage;
+  | VideoBlock;
+export type AnyModel = HomePage | Page | Translation | App;
 export type AnyBlockOrModel = AnyBlock | AnyModel;
