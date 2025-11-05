@@ -6,115 +6,62 @@
 
 ---
 
-<!--datocms-autoinclude-header end-->
+# Estro
 
-# Astro Starter Kit
+**Base setup on top of headless services to help you quickly start a new website**
 
-This project aims to be a great starting point for your Astro projects that need to interact with DatoCMS.
+This project is highly inspired and copied by Head-Start, a boilerplate make by the NL agency VoorHoede
+Their versione is defenitely more extended and powerful, plenty of well reasoned good practices.
+For my goal, that's too much, so Fastro is trying to get just some inspiration.
 
-- 🔍 **Fully commented code** — Every file is commented and explained in detail, it will be impossible to get lost!
-- 💯 **100% TypeScript** — The project relies on the generated `schema.ts` from the DatoCMS CLI to keep queries and components strongly typed.
-- 🛠️ **Minimal boilerplate** — The project is minimal and exposes only what is necessary to get started, without complicated models that need to be removed.
-- 🚫 **Zero CSS** — There is only one CSS import, which you can remove to use your preferred CSS tool.
-- 📝 **Full support for Draft Mode** — Your editors can always view the latest draft version of the content.
-- 🧩 **Plugin ready** — Support for the fantastic plugins [Web Previews](https://www.datocms.com/marketplace/plugins/i/datocms-plugin-web-previews) and [SEO/Readability Analysis](https://www.datocms.com/marketplace/plugins/i/datocms-plugin-seo-readability-analysis).
-- 🔄 **DatoCMS's Real-time Updates API** — Your editors can see updated content instantly as soon as you save a new version on DatoCMS.
-- 🌐 **SEO Metadata** — Full integration between Astro and the SEO settings coming from DatoCMS.
+* [Inteview](https://www.datocms.com/casual-chats/focusing-on-flexibility-extensibility-with-plugins-and-head-start)
+* [Head Start Repo](https://github.com/voorhoede/head-start)
 
-## How to use
+Also, this project originally derives from the official DatoCMS-Astro template https://www.datocms.com/marketplace/starters/astro-starter-kit
 
-### Quick start
+## Philosophy
 
-1. [Create an account on DatoCMS](https://datocms.com).
+- Provide a generic template to help develop new websites (not web apps) faster.
+- Provide a pre-defined setup for composable pages with common components.
+- Provide pre-configured services like a CMS and deployment platform.
+- Support common needs like internationalisation (i18n), SEO, redirects and analytics.
+- Provide functional interactivity without a JS framework (React, Vue, Svelte, etc)*.
 
-2. Make sure that you have set up the [Github integration on Vercel](https://vercel.com/docs/git/vercel-for-github).
 
-3. Let DatoCMS set everything up for you clicking this button below:
+## Architecture
 
-[![Deploy with DatoCMS](https://dashboard.datocms.com/deploy/button.svg)](https://dashboard.datocms.com/deploy?repo=datocms%2Fastro-starter-kit%3Amain)
+The site is created as lightweight progressively enhanced website connected to a headless CMS:
 
-### Local setup
+- [Astro](https://astro.build/) - web framework to structure this project. Astro is selected because it embraces web standards, is designed for performance, and supports all our favourite UI frameworks (React, Vue and Svelte).
+- [DatoCMS](https://www.datocms.com/) - a headless CMS is connected to manage web content. DatoCMS is selected for its modular and structured content options, advanced image service, multi-language support and GraphQL API.
 
-Once the setup of the project and repo is done, clone the repo locally.
+## Getting started
 
-#### Set up environment variables
+First create a project on DatoCMS and get the API Tokens to by copied in `.env` from `.env.sample`
 
-Copy the sample .env file:
-
-```bash
-cp .env.local.example .env
-```
-
-In your DatoCMS' project, go to the **Settings** menu at the top and click **API tokens**.
-
-Copy the values of the following tokens into the specified environment variable:
-
-- `DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN`: CDA Only (Published)
-- `DATOCMS_DRAFT_CONTENT_CDA_TOKEN`: CDA Only (Draft)
-- `DATOCMS_CMA_TOKEN`: CMA Only (Admin)
-
-Then set both `SECRET_API_TOKEN` and `SIGNED_COOKIE_JWT_SECRET` by generating two different secure strings (you can use `openssl rand -hex 32` or any other cryptographically-secure random string generator):
-
-- The `SECRET_API_TOKEN` will be used to safeguard all API routes from incoming requests from untrusted sources;
-- The `SIGNED_COOKIE_JWT_SECRET` will be used to sign the Draft Mode cookies.
-
-#### Run your project locally
+Then run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Your website should be up and running on [http://localhost:4321](http://localhost:4321)!
 
-## VS Code
 
-It is highly recommended to keep `schema.ts` up to date so that your IDE can offer accurate auto-completions and type information for GraphQL documents.
+## Commands
 
-## <!--datocms-autoinclude-footer start-->
+All commands are run from the root of the project, from a terminal:
 
----
+| Command (`npm run ...`) | Action
+|:------------------------| :-----------------------------------------------
+| `dev`                   | Starts local dev server at `localhost:4321` (head in T9)
+| `build`                 | Build your production site to `./dist/`
+| `preview`               | Preview your build locally, before deploying
+| `astro ...`             | Run commands like `astro add` (see `astro -- --help`)
+| `lint`                  | Check code style and valide HTML output
+| `test`                  | Runs the test suite, individual tests are available using `test:...`
 
-# What is DatoCMS?
 
-<a href="https://www.datocms.com/"><img src="https://www.datocms.com/images/full_logo.svg" height="60" alt="DatoCMS - The Headless CMS for the Modern Web"></a>
+## License
 
-[DatoCMS](https://www.datocms.com/) is the REST & GraphQL Headless CMS for the modern web.
-
-Trusted by over 25,000 enterprise businesses, agencies, and individuals across the world, DatoCMS users create online content at scale from a central hub and distribute it via API. We ❤️ our [developers](https://www.datocms.com/team/best-cms-for-developers), [content editors](https://www.datocms.com/team/content-creators) and [marketers](https://www.datocms.com/team/cms-digital-marketing)!
-
-**Why DatoCMS?**
-
-- **API-First Architecture**: Built for both REST and GraphQL, enabling flexible content delivery
-- **Just Enough Features**: We believe in keeping things simple, and giving you [the right feature-set tools](https://www.datocms.com/features) to get the job done
-- **Developer Experience**: First-class TypeScript support with powerful developer tools
-
-**Getting Started:**
-
-- ⚡️ [Create Free Account](https://dashboard.datocms.com/signup) - Get started with DatoCMS in minutes
-- 🔖 [Documentation](https://www.datocms.com/docs) - Comprehensive guides and API references
-- ⚙️ [Community Support](https://community.datocms.com/) - Get help from our team and community
-- 🆕 [Changelog](https://www.datocms.com/product-updates) - Latest features and improvements
-
-**Official Libraries:**
-
-- [**Content Delivery Client**](https://github.com/datocms/cda-client) - TypeScript GraphQL client for content fetching
-- [**REST API Clients**](https://github.com/datocms/js-rest-api-clients) - Node.js/Browser clients for content management
-- [**CLI Tools**](https://github.com/datocms/cli) - Command-line utilities for schema migrations (includes [Contentful](https://github.com/datocms/cli/tree/main/packages/cli-plugin-contentful) and [WordPress](https://github.com/datocms/cli/tree/main/packages/cli-plugin-wordpress) importers)
-
-**Official Framework Integrations**
-
-Helpers to manage SEO, images, video and Structured Text coming from your DatoCMS projects:
-
-- [**React Components**](https://github.com/datocms/react-datocms)
-- [**Vue Components**](https://github.com/datocms/vue-datocms)
-- [**Svelte Components**](https://github.com/datocms/datocms-svelte)
-- [**Astro Components**](https://github.com/datocms/astro-datocms)
-
-**Additional Resources:**
-
-- [**Plugin Examples**](https://github.com/datocms/plugins) - Example plugins we've made that extend the editor/admin dashboard
-- [**Starter Projects**](https://www.datocms.com/marketplace/starters) - Example website implementations for popular frameworks
-- [**All Public Repositories**](https://github.com/orgs/datocms/repositories?q=&type=public&language=&sort=stargazers)
-
-<!--datocms-autoinclude-footer end-->
+Released under [ISC License](./LICENSE.md).
