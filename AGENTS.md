@@ -1,6 +1,6 @@
 # 1) Mission & Scope
 
-This project is named "Fastro", a boilerplate to build and maintain an editorial website that:
+This project is named **“Fastro”**, a boilerplate to build and maintain an editorial website that:
 
 - Uses **Astro + Tailwind + Iconify + DatoCMS + Vercel + npm**.
 - Is written in **TypeScript** and consumes **GraphQL** data.
@@ -9,98 +9,107 @@ This project is named "Fastro", a boilerplate to build and maintain an editorial
 
 ## Objectives
 
-- Create a **solid, maintainable structure** that the team can evolve over time.
+- Create a **solid, maintainable structure** the team can evolve over time.
 - **Follow** the guidelines defined under `/docs`.
-- **Continuously update documentation** where you have permission (see Permissions & File Policy).
-- **Code style**: no code repetition, create helpers, snippet or fragments to avoid code and grphql repetitions.
+- **Continuously update documentation** where you have permission (see *Permissions & File Policy*).
+- **Code style:** avoid repetition. Create helpers, snippets, or fragments to prevent duplicated code and GraphQL definitions.
 
-In addition to the documentation files, If you need real working examples, you can rely on these repos to get inspired, considering them as best practices:
+In addition to the documentation files, if you need working examples, you can rely on these repos as best-practice references:
 
 - https://github.com/datocms/astro-starter-kit/tree/main
 - https://github.com/voorhoede/head-start
 - https://github.com/datocms/astro-website
 
-Also in the `/head-start` folder you can find files, scripts and logic often mentioned in the docuemntation file. This folder is temporary, just to help you in understanding, copying and get to the point faster. From this project, compeltely ignore everything about deploy on Cloudflare, testing and overcomplicated part not aligne with the scope of Fastro.
+Also, in the /head-start folder you’ll find files, scripts, and logic referenced in the docs. This folder is temporary and meant for copy-and-adapt only. Ignore any Cloudflare-specific deploy steps, test harnesses, or tooling not aligned with Fastro’s scope.
 
 ## Out of Scope / Never Do
 
 - **Do not push** directly to the Git repository (no commits to any remote branch).
-  - If changes are needed, open a well‑formed **Issue** (and attach a patch file if applicable).
+  - If changes are needed, open a well-formed **Issue** (attach a patch file if applicable).
 - **Do not modify** any file marked with `agent_edit: false` in its frontmatter.
 - **Never include** GraphQL fields whose name ends with **`_private`** (see GraphQL rules below).
 
 # 2) Canonical Documentation & How to Use It
 
 1. `/docs` is the **canonical knowledge base**.
-2. `docs/DATOCMS.md` is the **main** reference for DatoCMS integration.
+2. `docs/DATOCMS.md` is the **main** reference for DatoCMS integration.  
    - Use web search **only** for **DatoCMS product updates** listed at [https://www.datocms.com/product-updates](https://www.datocms.com/product-updates)
 3. If information is missing or unclear → **open an Issue** with concise, answerable questions.
-4. Keep `docs/TODO.md` **up to date** with tasks you start, complete, or defer or all the **issues** you find
+4. Keep `docs/TODO.md` **up to date** with tasks you start, complete, defer, and with any **Issues** you find.
 
-## TODO.md
-In the file /docs/TODO.md, feel free to update this file adding new tasks;
-When you do it, use this template:
-
-- [ ] [Area] [Impact: ] [Effort: ]: [Task Description]
-
-Possible areas:
-- Refactoring
-- Security
-- Performance or otpimization
-- Features
 
 ## What to Consult in `/docs`
 
-- **DatoCMS:** `/docs/DATOCMS.md` (Overview, images & video, drafts/updated content, structured text, SEO, real‑time updates, etc.)
+- **DatoCMS:** `/docs/DATOCMS.md` (Overview, images & video, drafts/updated content, Structured Text, SEO, real-time updates, etc.)
 - **Decision log:** `/docs/decision-log.md`
 - **Accessibility:** `/docs/accessibility.md`
 - **Assets (responsive images, video, icons):** `/docs/assets.md`
 - **How to manage blocks and components:** `/docs/cms-content-modelling.md`
-- **How to get content via graphQL to the CMS:** `/docs/cms-data-loading.md`
+- **How to fetch content from the CMS via GraphQL:** `/docs/cms-data-loading.md`
 - **Project structure rules:** `/docs/project-structure.md`
-- **Translations / multilingual:** `/docs/118n.md`
+- **Translations / multilingual:** `/docs/i18n.md`
 - **DatoCMS naming conventions:** `/docs/cms-content-modelling.md`
 - **SEO setup:** `/docs/seo.md`
 - **DatoCMS search system:** `/docs/search.md`
 - **How to test the application:** `/docs/testing.md`
-- **Components catalog & usage:** `/docs/list-components.md`
+- **Components catalogue & usage:** `/docs/list-components.md`
 - **Helper functions catalogue:** `/docs/list-helpers.md`
 - **Models and pages catalogue:** `/docs/list-models.md`
 - **Suggested tasks:** `/docs/TODO.md`
 
-> **Rule:** When a human tells you a feature/refactor is completed, you have to:
+### Rules:
 
-   * update the relevant doc files you are allowed to modify
-   * Update the list of /docs/list-*.md with descriptions of any **components, models, or helpers** created or modified
-   * update the /docs/TODO.md as per instructions
+When a human confirms a feature/refactor is completed, you MUST:
 
----
+- Update the relevant docs you’re allowed to modify
+- Update /docs/list-*.md with any components, models, or helpers created/changed
+- Update /docs/TODO.md (status → done, or add follow-ups)
+
+## How to use and update TODO.md
+
+In /docs/TODO.md, add new tasks using this template:
+
+- [ ] [Area] [Impact: H|M|L] [Effort: H|M|L] [Owner: @handle] [Status: todo|wip|done] — Short task description
+
+Areas:
+* Refactoring
+* Security
+* Performance/optimization
+* Features
+
+Sort by Impact desc, then Effort asc. Reference an Issue ID when available.
+Move completed task at theend of file, adding the date of completition.
 
 # 3) Permissions & File Policy
 
 - **Modifiable by agents:**
   - `docs/**` files that explicitly include `agent_edit: true`
   - Example files, fixtures, and tests (unless otherwise stated)
-- **Read‑only:**
+- **Read-only:**
   - All files with `agent_edit: false` (CI will enforce)
 - **Never touch:**
   - `docs/DATOCMS.md`
-  - `schema.ts`(generated by DatoCMS CLI)
+  - `schema.ts` (generated by the DatoCMS CLI)
   - Any credentials/secrets
   - `.env*` files and environment variable definitions
 
 > **Frontmatter contract:** If a file contains `agent_edit: false`, you **must not** edit it. If changes are required, open an **Issue**.
 
-# 4) General style
+# 4) General Style
 
 ## Commit & Pull Request Guidelines
 
-Commit messages in this repo are short, imperative descriptions (e.g., “Fix image component by Astro”). Group related changes and commit frequently rather than monolithic updates. PRs should include: summary of changes, affected routes/components, any schema updates, and screenshots or URLs for UI tweaks. Reference relevant issues or Linear tickets when available.
+Commit messages are short, imperative descriptions (e.g., “Fix image component in Astro”). Group related changes and commit frequently rather than shipping monolithic updates.  
+PRs should include: a summary of changes, affected routes/components, any schema updates, and screenshots or URLs for UI tweaks. Reference relevant Issues or Linear tickets when available.
 
 ## DatoCMS & Configuration Tips
 
-Environment variables for CDA/CMA tokens are defined in `datocms.json`; ensure they are present locally before running data-dependent commands. Never edit `schema.ts` manually, always regenerate with `npm run generate-schema`.
+Environment variables for CDA/CMA tokens are defined in `datocms.json`; make sure they are present locally before running data-dependent commands.  
+Never edit `schema.ts` manually — always regenerate with `npm run generate-schema`.
 
 # Interaction with humans
-Before starting wiritng code, after an initial analysys, you are free to ask questions to clarify any possible doubts about the request and the process to complete it.
-Even if you are running with lot of permissions in wiritng mode, feel free to ask questions to clarify the requests asking for additional details.
+
+Before writing code, perform a quick analysis.
+If anything is unclear, ask concise, targeted questions.
+Even with broad write permissions, clarify missing details rather than guessing.
+
