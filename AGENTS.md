@@ -5,13 +5,14 @@ This project is named "Fastro", a boilerplate to build and maintain an editorial
 - Uses **Astro + Tailwind + Iconify + DatoCMS + Vercel + npm**.
 - Is written in **TypeScript** and consumes **GraphQL** data.
 - Supports **static routes**, **dynamic routes**, **Astro Islands**, **query listeners** (for live updates), and **cache tags** (for granular revalidation).
-- Exposes `api/preview` to let editors view **draft** content.
+- Exposes `api/preview` to let editors view **draft** content on Vercel.
 
 ## Objectives
 
 - Create a **solid, maintainable structure** that the team can evolve over time.
 - **Follow** the guidelines defined under `/docs`.
 - **Continuously update documentation** where you have permission (see Permissions & File Policy).
+- **Code style**: no code repetition, create helpers, snippet or fragments to avoid code and grphql repetitions.
 
 In addition to the documentation files, If you need real working examples, you can rely on these repos to get inspired, considering them as best practices:
 
@@ -19,9 +20,7 @@ In addition to the documentation files, If you need real working examples, you c
 - https://github.com/voorhoede/head-start
 - https://github.com/datocms/astro-website
 
-Also in the `/head-start` folder you can find files, scripts and logic often mentioned in the docuemntation file. This folder is temp, just to help you in understanding, copying and get to the point faster. From this project, compeltely ignore everything about deploy on Cloudflare, testing and overcomplicated part not aligne with the scope of Fastro.
-
-
+Also in the `/head-start` folder you can find files, scripts and logic often mentioned in the docuemntation file. This folder is temporary, just to help you in understanding, copying and get to the point faster. From this project, compeltely ignore everything about deploy on Cloudflare, testing and overcomplicated part not aligne with the scope of Fastro.
 
 ## Out of Scope / Never Do
 
@@ -38,7 +37,7 @@ Also in the `/head-start` folder you can find files, scripts and logic often men
 3. If information is missing or unclear → **open an Issue** with concise, answerable questions.
 4. Keep `docs/TODO.md` **up to date** with tasks you start, complete, or defer or all the **issues** you find
 
-## TODO
+## TODO.md
 In the file /docs/TODO.md, feel free to update this file adding new tasks;
 When you do it, use this template:
 
@@ -103,5 +102,5 @@ Commit messages in this repo are short, imperative descriptions (e.g., “Fix im
 Environment variables for CDA/CMA tokens are defined in `datocms.json`; ensure they are present locally before running data-dependent commands. Never edit `schema.ts` manually, always regenerate with `npm run generate-schema`.
 
 # Interaction with humans
-
+Before starting wiritng code, after an initial analysys, you are free to ask questions to clarify any possible doubts about the request and the process to complete it.
 Even if you are running with lot of permissions in wiritng mode, feel free to ask questions to clarify the requests asking for additional details.
