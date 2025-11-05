@@ -2,4 +2,9 @@
 .astro
 src/lib/datocms/graphql-env.d.ts
 schema.graphql
-docs/
+docs/*
+docs/DATOCMS.md
+schema.ts
+AGENTS.md
+dist/
+.vscode/
