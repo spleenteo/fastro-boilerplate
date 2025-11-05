@@ -3,18 +3,18 @@ import {
   DATOCMS_DRAFT_CONTENT_CDA_TOKEN,
   DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN,
 } from 'astro:env/server';
-import type { TadaDocumentNode } from 'gql.tada';
 
 /**
  * Executes a GraphQL query using the DatoCMS Content Delivery API, using a
  * different API token depending on whether we want to fetch draft content or
  * published.
  */
-export async function executeQuery<Result, Variables>(
-  query: TadaDocumentNode<Result, Variables>,
+export async function executeQuery<Result, Variables = Record<string, never>>(
+  query: string,
   options?: ExecuteQueryOptions<Variables>,
 ) {
-  const result = await libExecuteQuery(query, {
+  const result = await libExecuteQuery<Result, Variables>(query, {
+    ...options,
     variables: options?.variables,
     excludeInvalid: true,
     includeDrafts: options?.includeDrafts,

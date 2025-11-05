@@ -1,22 +1,21 @@
 ---
-import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
 import { ResponsiveImage } from '~/components/ResponsiveImage';
-import { ImageGalleryBlockFragment } from './fragments';
+import type { ImageGalleryBlockFragmentData } from './fragments';
 
 interface Props {
-  block: FragmentOf<typeof ImageGalleryBlockFragment>;
+  block: ImageGalleryBlockFragmentData & {
+    id: string;
+    __typename: 'ImageGalleryBlockRecord';
+  };
 }
 
 const { block } = Astro.props;
-
-// Read unmasked block from fragment
-const unmaskedBlock = readFragment(ImageGalleryBlockFragment, block);
 ---
 
 <div class="gallery">
   <div>
     {
-      unmaskedBlock.assets.map((asset) => (
+      block.assets.map((asset) => (
         <figure>
           {/* Display responsive image for each asset */}
           <ResponsiveImage data={asset.responsiveImage} imgStyle={{ width: 'auto' }} />

@@ -1,9 +1,12 @@
 ---
-import { graphql } from '~/lib/datocms/graphql';
 import Layout from '../layouts/Layout.astro';
-import { TagFragment } from '~/lib/datocms/commonFragments';
+import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { StructuredText } from '@datocms/astro';
+import type {
+  StructuredTextGraphQlResponse,
+  StructuredTextGraphQlResponseRecord,
+} from 'react-datocms';
 
 import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
 
@@ -11,76 +14,115 @@ import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 
 import { PageInline } from '~/components/inlineRecord/PageInline';
-import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
+import {
+  PageInlineFragment,
+  type PageInlineFragmentData,
+} from '~/components/inlineRecord/PageInline/fragments';
 
 import { PageLink } from '~/components/linkToRecord/PageLink';
-import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
+import {
+  PageLinkFragment,
+  type PageLinkFragmentData,
+} from '~/components/linkToRecord/PageLink/fragments';
 
 import { VideoBlock } from '~/components/blocks/VideoBlock';
-import { VideoBlockFragment } from '~/components/blocks/VideoBlock/fragments';
+import {
+  VideoBlockFragment,
+  type VideoBlockFragmentData,
+} from '~/components/blocks/VideoBlock/fragments';
 
 import { ImageBlock } from '~/components/blocks/ImageBlock';
-import { ImageBlockFragment } from '~/components/blocks/ImageBlock/fragments';
+import {
+  ImageBlockFragment,
+  type ImageBlockFragmentData,
+} from '~/components/blocks/ImageBlock/fragments';
 
 import { ImageGalleryBlock } from '~/components/blocks/ImageGalleryBlock';
-import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock/fragments';
+import {
+  ImageGalleryBlockFragment,
+  type ImageGalleryBlockFragmentData,
+} from '~/components/blocks/ImageGalleryBlock/fragments';
+
+type BaseRecord<TType extends string> = StructuredTextGraphQlResponseRecord & {
+  __typename: TType;
+};
+
+type ImageBlockRecord = BaseRecord<'ImageBlockRecord'> & ImageBlockFragmentData;
+type ImageGalleryBlockRecord = BaseRecord<'ImageGalleryBlockRecord'> &
+  ImageGalleryBlockFragmentData;
+type VideoBlockRecord = BaseRecord<'VideoBlockRecord'> & VideoBlockFragmentData;
+
+type StructuredTextBlockRecord = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord;
+
+type StructuredTextLinkRecord = PageLinkFragmentData | PageInlineFragmentData;
+
+type BasicPageStructuredText = StructuredTextGraphQlResponse<
+  StructuredTextBlockRecord,
+  StructuredTextLinkRecord
+>;
+
+interface BasicPageQueryResult {
+  page: {
+    _seoMetaTags: TagFragmentData[];
+    title: string;
+    _firstPublishedAt: string;
+    structuredText: BasicPageStructuredText;
+  } | null;
+}
 
 /**
- * The GraphQL query that will be executed for this route to generate the page
- * content and metadata.
- *
- * Thanks to gql.tada, the result will be fully typed!
+ * GraphQL query executed for this route to generate the page content and
+ * metadata.
  */
-const query = graphql(
-  /* GraphQL */ `
-    query BasicPageQuery {
-      page {
-        _seoMetaTags {
-          ...TagFragment
+const query = /* GraphQL */ `
+  query BasicPageQuery {
+    page {
+      _seoMetaTags {
+        ...TagFragment
+      }
+      title
+      _firstPublishedAt
+      structuredText {
+        value
+        blocks {
+          ... on RecordInterface {
+            id
+            __typename
+          }
+          ... on ImageBlockRecord {
+            ...ImageBlockFragment
+          }
+          ... on ImageGalleryBlockRecord {
+            ...ImageGalleryBlockFragment
+          }
+          ... on VideoBlockRecord {
+            ...VideoBlockFragment
+          }
         }
-        title
-        _firstPublishedAt
-        structuredText {
-          value
-          blocks {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ... on ImageBlockRecord {
-              ...ImageBlockFragment
-            }
-            ... on ImageGalleryBlockRecord {
-              ...ImageGalleryBlockFragment
-            }
-            ... on VideoBlockRecord {
-              ...VideoBlockFragment
-            }
+        links {
+          ... on RecordInterface {
+            id
+            __typename
           }
-          links {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ...PageLinkFragment
-            ...PageInlineFragment
-          }
+          ...PageLinkFragment
+          ...PageInlineFragment
         }
       }
     }
-  `,
-  [
-    TagFragment,
-    ImageBlockFragment,
-    ImageGalleryBlockFragment,
-    VideoBlockFragment,
-    PageLinkFragment,
-    PageInlineFragment,
-  ],
-);
+  }
+
+  ${TagFragment}
+  ${ImageBlockFragment}
+  ${ImageGalleryBlockFragment}
+  ${VideoBlockFragment}
+  ${PageLinkFragment}
+  ${PageInlineFragment}
+`;
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const { page } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+const { page } = await executeQuery<BasicPageQueryResult>(query, {
+  includeDrafts: draftModeEnabled,
+});
 
 if (!page) {
   return new Response(null, {

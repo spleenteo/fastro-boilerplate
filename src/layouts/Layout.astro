@@ -1,7 +1,6 @@
 ---
-import { TagFragment } from '~/lib/datocms/commonFragments';
+import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
-import { graphql } from '~/lib/datocms/graphql';
 import { DraftModeToggler } from '~/components/DraftModeToggler';
 import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import { isDraftModeEnabled } from '~/lib/draftMode';
@@ -12,21 +11,28 @@ type Props = {
 
 const { additionalSeo = [] } = Astro.props;
 
-const query = graphql(
-  /* GraphQL */ `
-    query RootQuery {
-      _site {
-        faviconMetaTags {
-          ...TagFragment
-        }
+interface RootQueryResult {
+  _site: {
+    faviconMetaTags: TagFragmentData[];
+  };
+}
+
+const query = /* GraphQL */ `
+  query RootQuery {
+    _site {
+      faviconMetaTags {
+        ...TagFragment
       }
     }
-  `,
-  [TagFragment],
-);
+  }
+
+  ${TagFragment}
+`;
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
+const result = await executeQuery<RootQueryResult>(query, {
+  includeDrafts: draftModeEnabled,
+});
 ---
 
 <!doctype html>

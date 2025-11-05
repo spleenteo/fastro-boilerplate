@@ -144,7 +144,12 @@ export type TextBlock = ItemTypeDefinition<
   {
     text: {
       type: 'structured_text';
-      blocks: ActionBlock | VideoBlock | ImageBlock | VideoEmbedBlock | TableBlock;
+      blocks:
+        | ActionBlock
+        | VideoBlock
+        | ImageBlock
+        | VideoEmbedBlock
+        | TableBlock;
       inline_blocks: File | Page | HomePage;
     };
   }
