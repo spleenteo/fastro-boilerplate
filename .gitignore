@@ -10,6 +10,7 @@ DATOCMS.md
 .wrangler
 .netlify
 head-start/
+.vercel/
 
 # logs
 npm-debug.log*
