@@ -7,7 +7,7 @@
     "build": "astro check && astro build",
     "dev": "run-p dev:* --print-label",
     "dev:astro": "astro dev",
-    "dev:dato": "npm run sync-datocms",
+    "dev:dato": "npm run generate-schema",
     "format": "npx prettier . --write",
     "generate-schema": "npx datocms schema:generate schema.ts",
     "lint": "prettier --check .",
