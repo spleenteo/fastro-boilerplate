@@ -1,0 +1,17 @@
+---
+import Icon from 'astro-icon/components/Icon.astro';
+import { ICON_SET } from '@/config/design';
+
+interface Props {
+  name: string;
+  label?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { name, label, class: klass = 'w-5 h-5', ...rest } = Astro.props as Props;
+const finalName = name.includes(':') ? name : `${ICON_SET}:${name}`;
+const accessibilityProps = label ? { 'aria-label': label } : ({ 'aria-hidden': 'true' } as const);
+---
+
+<Icon name={finalName} class={klass} {...accessibilityProps} {...rest} />

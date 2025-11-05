@@ -31,6 +31,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "astro": "^5.8.2",
+    "astro-icon": "^1.1.5",
     "datocms-structured-text-generic-html-renderer": "^5.0.0",
     "datocms-structured-text-to-plain-text": "^5.0.0",
     "jsdom": "^24.1.1",
@@ -43,12 +44,13 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
+    "@iconify-json/iconoir": "^1.2.10",
     "@types/jsdom": "^21.1.7",
     "@types/jsonwebtoken": "^9.0.6",
     "dotenv-cli": "^7.4.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
-    "npm-run-all": "^4.1.5",
     "simple-git-hooks": "^2.11.1"
   },
   "simple-git-hooks": {
