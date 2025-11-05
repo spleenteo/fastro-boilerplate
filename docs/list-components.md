@@ -21,7 +21,7 @@ scope: A list to describe all components used in the project
 
 ## Blocks (DatoCMS Modular Content)
 
-- `HeroBlock` (`src/components/blocks/HeroBlock/Component.astro` + `fragments.ts`): Renders the home hero section by mapping renamed DatoCMS fields (display options, hero title/subtitle, hero image) and surfaces nested button-rich text through the rebuilt structured text fragment.
+- `HeroBlock` (`src/components/blocks/HeroBlock/Component.astro` + `fragments.ts`): Renders the home hero section by outputting the localized title/subtitle HTML, optional hero image, and iterating CTA buttons fetched via the block fragment (the `displayOptions` field is currently fetched but unused in the UI pending design guidance).
 - `ButtonBlock` (`src/components/blocks/ButtonBlock/Component.astro` + `fragments.ts`): Handles button-rich text blocks by outputting accessible anchors and exposing a fragment for the renamed `label`, `url`, and `primary` fields.
 - `ImageBlock` (`src/components/blocks/ImageBlock/Component.astro` + `fragments.ts`): Presents a single asset as a `<figure>` with responsive imagery and caption, sharing the `ResponsiveImage` fragment to stay in sync with the CMS model.
 - `ImageGalleryBlock` (`src/components/blocks/ImageGalleryBlock/Component.astro` + `fragments.ts`): Maps an array of assets into a gallery grid, reusing `ResponsiveImage` for each entry while preserving asset titles.

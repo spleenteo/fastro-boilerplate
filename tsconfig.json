@@ -16,5 +16,7 @@
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
-  }
+  },
+  "include": ["astro.config.mjs", "env.d.ts", "src/**/*", "scripts/**/*", "vercel.json"],
+  "exclude": ["head-start", "node_modules", "dist"]
 }

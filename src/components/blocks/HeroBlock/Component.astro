@@ -28,7 +28,7 @@ const hasButtons = Boolean(block.buttons?.length);
     hasButtons && block.buttons && (
       <div>
         {block.buttons.map((button) => (
-          <ButtonBlock block={button} key={button.id} />
+          <ButtonBlock block={button} />
         ))}
       </div>
     )
