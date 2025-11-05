@@ -1,12 +1,12 @@
 # CMS Content Modelling
 
-**Estro uses DatoCMS and uses content modelling and naming conventions for models and fields.**
+**Fastro uses DatoCMS and uses content modelling and naming conventions for models and fields.**
 
 ## Naming strategy
 
 DatoCMS is a headless CMS, so the content models should be as much UI agnostic as possible. In general naming content models after their data properties is a good practice, because it separates concerns, promotes reusability within the CMS and by the applications connection to the CMS, and content models don't need to change everytime a UI changes.
 
-In Estro content is named in this order of preference:
+In Fastro content is named in this order of preference:
 
 1. Naming based on data type (for example `slug`, `image`, `color`).
 2. Naming based on function (for example `title`, `autoplay`).
@@ -17,13 +17,13 @@ Specific cases:
 - In case of a boolean field it should be named after its function, as a boolean means nothing without context. For example a `Video Block` could have `autoplay`, `loop` and `muted` boolean fields.
 - In case a model has multiple fields of the same data type, the primary field should be named after its data type (for example `image`) and secondary fields should be named after their function (for example `background_image`).
 - In case a field is named after its function, the validations you configure for the field are typically a good indicator towards a fitting name. For example if you set a single line string field to only accept a URL as a pattern, `url` is probably a good name for the field.
-- In case a field is only added to control the appearance of a model in the user interface, Estro proposes to solve this with a generic `layout` and `style` field. See [Modelling Appearance](#modelling-appearance).
+- In case a field is only added to control the appearance of a model in the user interface, Fastro proposes to solve this with a generic `layout` and `style` field. See [Modelling Appearance](#modelling-appearance).
 
 ## Model name conventions
 
 The [DatoCMS Schema builder](https://www.datocms.com/docs/content-modelling) distinguishes regular models and reusable blocks that can be used in modular content and structured text fields.
 
-Estro uses these standardised model names:
+Fastro uses these standardised model names:
 
 | Model name  | Model type                                                              | Notes                                                                                                                                                                                                                                     |
 | ----------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -34,7 +34,7 @@ Since a project has multiple pages and multiple blocks, the name should describe
 
 ## Field name conventions
 
-While there can always be exceptions, Estro aims to cover the majority of field names with a list of standardised field names:
+While there can always be exceptions, Fastro aims to cover the majority of field names with a list of standardised field names:
 
 | Field name | Field type                                                                                                                                                                | Notes                                                                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -50,7 +50,7 @@ While there can always be exceptions, Estro aims to cover the majority of field 
 
 ## Modelling Appearance
 
-In cases where the appearance of a content model needs to be controlled from the CMS, Estro aims to handle this using two standardised fields:
+In cases where the appearance of a content model needs to be controlled from the CMS, Fastro aims to handle this using two standardised fields:
 
 | Field name | Field type                                                                                     | Notes                                                                                                                                                                                                                                                                                                                                                               |
 | ---------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
