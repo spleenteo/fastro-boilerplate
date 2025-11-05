@@ -6,6 +6,9 @@ dist/
 
 # dependencies
 node_modules/
+DATOCMS.md
+.wrangler
+.netlify
 
 # logs
 npm-debug.log*
