@@ -38,23 +38,42 @@ Also in the `/head-start` folder you can find files, scripts and logic often men
 3. If information is missing or unclear → **open an Issue** with concise, answerable questions.
 4. Keep `docs/TODO.md` **up to date** with tasks you start, complete, or defer or all the **issues** you find
 
+## TODO
+In the file /docs/TODO.md, feel free to update this file adding new tasks;
+When you do it, use this template:
+
+- [ ] [Area] [Impact: ] [Effort: ]: [Task Description]
+
+Possible areas:
+- Refactoring
+- Security
+- Performance or otpimization
+- Features
+
 ## What to Consult in `/docs`
 
 - **DatoCMS:** `/docs/DATOCMS.md` (Overview, images & video, drafts/updated content, structured text, SEO, real‑time updates, etc.)
-- **Suggested maintenance tasks:** `/docs/TODO.md`
 - **Decision log:** `/docs/decision-log.md`
-- **Project structure rules:** `/docs/project-structure.md`
-- **Components catalog & usage:** `/docs/components.md`
-- **Helper functions:** `/docs/helpers.md`
-- **Translations / multilingual:** `/docs/118n.md`
-- **Accessibility:** `/docs/11ty.md`
-- **DatoCMS naming conventions:** `/docs/datocms-naming-conventions.md`
-- **External dependencies:** `/docs/dependencies.md`
-- **Code health & security:** `/docs/code-health.md` (or `/doc/code-health.md` if present)
-- **SEO setup:** `/docs/seo.md`
+- **Accessibility:** `/docs/accessibility.md`
 - **Assets (responsive images, video, icons):** `/docs/assets.md`
+- **How to manage blocks and components:** `/docs/cms-content-modelling.md`
+- **How to get content via graphQL to the CMS:** `/docs/cms-data-loading.md`
+- **Project structure rules:** `/docs/project-structure.md`
+- **Translations / multilingual:** `/docs/118n.md`
+- **DatoCMS naming conventions:** `/docs/cms-content-modelling.md`
+- **SEO setup:** `/docs/seo.md`
+- **DatoCMS search system:** `/docs/search.md`
+- **How to test the application:** `/docs/testing.md`
+- **Components catalog & usage:** `/docs/list-components.md`
+- **Helper functions catalogue:** `/docs/list-helpers.md`
+- **Models and pages catalogue:** `/docs/list-models.md`
+- **Suggested tasks:** `/docs/TODO.md`
 
-> **Rule:** When you complete a feature or refactor, update the relevant doc sections and the descriptions of any affected **components, models, or helpers**.
+> **Rule:** When a human tells you a feature/refactor is completed, you have to:
+
+   * update the relevant doc files you are allowed to modify
+   * Update the list of /docs/list-*.md with descriptions of any **components, models, or helpers** created or modified
+   * update the /docs/TODO.md as per instructions
 
 ---
 
