@@ -78,9 +78,13 @@ Areas:
 * Features
 
 Sort by Impact desc, then Effort asc. Reference an Issue ID when available.
-Move completed task at theend of file, adding the date of completition.
+Move the completed task to the end of the file, including the date of completion. Reduce the description and remove the complexity, owner, and impact details. Here’s a template:
 
+- [completation date] - [Area] **[Feature name]**: short description
 # 3) Permissions & File Policy
+
+Unless you’re explicitly asked to read one of its files, ignore the `/docs/prompts/` folder and all its content.
+
 
 - **Modifiable by agents:**
   - `docs/**` files that explicitly include `agent_edit: true`

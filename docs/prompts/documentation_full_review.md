@@ -49,7 +49,9 @@ Don't use markdown tables, prefer bullets lists or more convenient style.
 - Keep the patch ≤ 500 added lines total; if more detail is needed, summarize and link to existing sections within those docs rather than adding new files.
 
 ### Guidance for Codex
-1. **Plan → Code (Structured CoT)**  
+1. **Inventory gate**  
+   - Run `npm run docs:inventory` (or `npm run test:docs` for CI parity) before touching any docs so the `docs/list-*` inventories are guaranteed to match the filesystem. Resolve every failure the script reports.
+2. **Plan → Code (Structured CoT)**  
    - Read `/docs/AGENTS.md` to extract the exact required structure for `/docs/TODO.md`.  
    - Parse `/docs/list-*` to build a ground-truth inventory, then scan `src/**` to detect mismatches (components/helpers/models that are unused, undocumented, or missing).  
    - Perform a security static pass tailored to Astro:
@@ -62,13 +64,13 @@ Don't use markdown tables, prefer bullets lists or more convenient style.
      - **3rd-party deps**: lockfile integrity, known risky packages, post-install scripts, supply-chain checks.
    - **Code health**: lint/format adherence, circular deps, layering violations, dead code, error handling, logging/PII redaction, bundle size/perf, Astro islands usage, assets bloat, DX scripts.
    - **Synthesize**: Map findings to actionable items in `/docs/TODO.md` with owner, priority, SLA, and acceptance criteria that reference the exact doc/section to adjust.
-2. **Self-critique loop (once)**  
+3. **Self-critique loop (once)**  
    - Re-check that `/docs/TODO.md` exactly follows `AGENTS.md` (section order, field names).  
    - Ensure no new files/folders are introduced and the diff only touches the listed docs.  
    - Tighten vague tasks into testable acceptance criteria.
-3. **Clarifications**  
+4. **Clarifications**  
    - If a required field/template from `AGENTS.md` is missing, note the assumption **inline at the top of `/docs/TODO.md`** in a short “Assumptions” block and proceed.
-4. **Bound the output**  
+5. **Bound the output**  
    - Keep the unified diff succinct; move lengthy rationales into concise bullet points inside the existing docs rather than expanding with new sections.
-5. **Safety & privacy**  
+6. **Safety & privacy**  
    - Replace any discovered secrets with `<REDACTED>` in docs and add rotation tasks in `/docs/TODO.md`.

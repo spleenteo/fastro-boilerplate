@@ -8,6 +8,7 @@
     "dev": "run-p dev:* --print-label",
     "dev:astro": "astro dev",
     "dev:dato": "npm run generate-schema",
+    "docs:inventory": "node scripts/check-docs-inventory.mjs",
     "format": "npx prettier . --write",
     "generate-schema": "npx datocms schema:generate schema.ts",
     "lint": "prettier --check .",
@@ -17,6 +18,7 @@
     "sync-datocms": "node scripts/sync-datocms.mjs",
     "test": "run-p test:* --print-label",
     "test:build": "npm run build",
+    "test:docs": "npm run docs:inventory",
     "test:format": "npm run format",
     "test:lint": "npm run lint"
   },

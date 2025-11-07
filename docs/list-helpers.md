@@ -18,7 +18,7 @@ scope: A list to describe all helpers, scripts, middlewares used in the project
 
 ## Internationalization
 
-- `i18n` toolkit (`src/lib/index.ts`): Initializes Rosetta with the configured locales, exposes `t`, `setLocale`, `getLocale`, `getLocaleName`, and constants like `defaultLocale`/`cookieName` for locale-aware UI.
+- `i18n` toolkit (`src/lib/locales.ts`): Source of truth for `supportedLocales`, `defaultLocale`, and the `isSupportedLocale()` type guard that powers routing params and locale fallbacks across pages.
 
 ## Design & Icons
 
@@ -31,3 +31,4 @@ scope: A list to describe all helpers, scripts, middlewares used in the project
 ## Tooling Scripts
 
 - `sync-datocms` (`scripts/sync-datocms.mjs`): Node script that loads `.env` values, regenerates `schema.ts` via `npx datocms schema:generate`, and refreshes `docs/DATOCMS.md` from the official DatoCMS LLM docs dump.
+- `check-docs-inventory` (`scripts/check-docs-inventory.mjs`): CI-enforced guard (`npm run docs:inventory` / `npm run test:docs`) that validates every `docs/list-*` reference points to a real file and that new helpers/components are reflected in the inventories.
