@@ -8,6 +8,8 @@ import { executeQuery } from '~/lib/datocms/executeQuery';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { defaultLocale } from '~/lib/locales';
 
+export const prerender = false;
+
 type HeroBlockRecord = HeroBlockFragmentData & {
   __typename: 'HeroBlockRecord';
 };
