@@ -1,6 +1,6 @@
 import { type Client, buildClient } from '@datocms/cma-client';
 import type { APIRoute } from 'astro';
-import { SECRET_API_TOKEN } from 'astro:env/server';
+import { PASSWORD_FOR_DRAFT } from 'astro:env/server';
 import { handleUnexpectedError, successfulResponse, withCORS } from '../utils';
 
 /*
@@ -28,7 +28,7 @@ async function installWebPreviewsPlugin(client: Client, baseUrl: string) {
         {
           name: 'Production',
           previewWebhook: new URL(
-            `/api/preview-links?token=${SECRET_API_TOKEN}`,
+            `/api/preview-links?token=${PASSWORD_FOR_DRAFT}`,
             baseUrl,
           ).toString(),
         },
@@ -50,7 +50,10 @@ async function installSEOAnalysisPlugin(client: Client, baseUrl: string) {
 
   await client.plugins.update(seoPlugin.id, {
     parameters: {
-      htmlGeneratorUrl: new URL(`/api/seo-analysis?token=${SECRET_API_TOKEN}`, baseUrl).toString(),
+      htmlGeneratorUrl: new URL(
+        `/api/seo-analysis?token=${PASSWORD_FOR_DRAFT}`,
+        baseUrl,
+      ).toString(),
       autoApplyToFieldsWithApiKey: 'seo_analysis',
       setSeoReadabilityAnalysisFieldExtensionId: true,
     },

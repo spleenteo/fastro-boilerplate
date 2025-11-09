@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { SECRET_API_TOKEN } from 'astro:env/server';
+import { PASSWORD_FOR_DRAFT } from 'astro:env/server';
 import { recordToWebsiteRoute } from '~/lib/datocms/recordInfo';
 import { handleUnexpectedError, invalidRequestResponse, json, withCORS } from '../utils';
 
@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ url, request }) => {
     const token = url.searchParams.get('token');
 
     // Ensure that the request is coming from a trusted source
-    if (token !== SECRET_API_TOKEN) {
+    if (token !== PASSWORD_FOR_DRAFT) {
       return invalidRequestResponse('Invalid token', 401);
     }
 

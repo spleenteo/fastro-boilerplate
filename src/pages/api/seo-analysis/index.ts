@@ -1,6 +1,6 @@
 import { buildClient } from '@datocms/cma-client';
 import type { APIRoute } from 'astro';
-import { DATOCMS_CMA_TOKEN, SECRET_API_TOKEN } from 'astro:env/server';
+import { DATOCMS_CMA_TOKEN, PASSWORD_FOR_DRAFT } from 'astro:env/server';
 import { JSDOM } from 'jsdom';
 import { recordToSlug, recordToWebsiteRoute } from '~/lib/datocms/recordInfo';
 import { draftModeHeaders } from '~/lib/draftMode';
@@ -32,7 +32,7 @@ export const GET: APIRoute = async ({ url }) => {
     const token = url.searchParams.get('token');
 
     // Ensure that the request is coming from a trusted source
-    if (token !== SECRET_API_TOKEN) {
+    if (token !== PASSWORD_FOR_DRAFT) {
       return invalidRequestResponse('Invalid token', 401);
     }
 

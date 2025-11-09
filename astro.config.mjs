@@ -6,6 +6,27 @@ import vercel from '@astrojs/vercel';
 import react from '@astrojs/react';
 import icon from 'astro-icon';
 
+const stripGraphqlWebSourceMapComment = () => ({
+  name: 'fastro:graphql-web-sourcemap',
+  enforce: 'pre',
+  transform(code, id) {
+    if (!id.includes('@0no-co/graphql.web/dist/graphql.web')) {
+      return null;
+    }
+
+    const next = code.replace(/\/\/# sourceMappingURL=.*$/gm, '').trimEnd();
+
+    if (next === code) {
+      return null;
+    }
+
+    return {
+      code: `${next}\n`,
+      map: null,
+    };
+  },
+});
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
@@ -27,7 +48,7 @@ export default defineConfig({
         context: 'server',
         access: 'secret',
       }),
-      SECRET_API_TOKEN: envField.string({
+      PASSWORD_FOR_DRAFT: envField.string({
         context: 'server',
         access: 'secret',
       }),
@@ -44,6 +65,7 @@ export default defineConfig({
   },
   integrations: [react(), icon()],
   vite: {
+    plugins: [stripGraphqlWebSourceMapComment()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
