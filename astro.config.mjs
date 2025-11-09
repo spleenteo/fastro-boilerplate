@@ -27,7 +27,7 @@ export default defineConfig({
         context: 'server',
         access: 'secret',
       }),
-      SECRET_API_TOKEN: envField.string({
+      PASSWORD_FOR_DRAFT: envField.string({
         context: 'server',
         access: 'secret',
       }),

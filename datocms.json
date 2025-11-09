@@ -18,7 +18,7 @@
       "type": "datocmsAccessToken",
       "tokenName": "CMA Only (Admin)"
     },
-    "SECRET_API_TOKEN": {
+    "PASSWORD_FOR_DRAFT": {
       "type": "string",
       "value": "secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone"
     },

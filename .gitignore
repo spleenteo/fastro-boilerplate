@@ -6,10 +6,10 @@ dist/
 
 # dependencies
 node_modules/
-DATOCMS.md
+docs/DATOCMS.md
 .wrangler
 .netlify
-head-start/
+ignore_*/
 .vercel/
 
 # logs
@@ -17,6 +17,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+build.log
 
 # environment variables
 .env
@@ -27,5 +28,3 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-build.log
-.vercel
