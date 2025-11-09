@@ -50,7 +50,10 @@ async function installSEOAnalysisPlugin(client: Client, baseUrl: string) {
 
   await client.plugins.update(seoPlugin.id, {
     parameters: {
-      htmlGeneratorUrl: new URL(`/api/seo-analysis?token=${PASSWORD_FOR_DRAFT}`, baseUrl).toString(),
+      htmlGeneratorUrl: new URL(
+        `/api/seo-analysis?token=${PASSWORD_FOR_DRAFT}`,
+        baseUrl,
+      ).toString(),
       autoApplyToFieldsWithApiKey: 'seo_analysis',
       setSeoReadabilityAnalysisFieldExtensionId: true,
     },

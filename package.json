@@ -57,6 +57,9 @@
     "prettier-plugin-astro": "^0.14.1",
     "simple-git-hooks": "^2.11.1"
   },
+  "overrides": {
+    "path-to-regexp": "6.3.0"
+  },
   "simple-git-hooks": {
     "pre-commit": "npm run format"
   }
