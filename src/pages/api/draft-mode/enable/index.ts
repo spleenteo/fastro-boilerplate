@@ -7,6 +7,8 @@ import { handleUnexpectedError, invalidRequestResponse, isRelativeUrl } from '..
 
 export const prerender = false;
 
+const encoder = new TextEncoder();
+
 /**
  * This route handler enables Draft Mode and redirects to the given URL.
  */
@@ -25,11 +27,11 @@ export const GET: APIRoute = (event) => {
       return invalidRequestResponse('Missing token', 401);
     }
 
-    const secretBuffer = Buffer.from(normalizedSecret);
-    const tokenBuffer = Buffer.from(normalizedToken);
+    const secretBytes = encoder.encode(normalizedSecret);
+    const tokenBytes = encoder.encode(normalizedToken);
 
     const isValidToken =
-      secretBuffer.length === tokenBuffer.length && timingSafeEqual(secretBuffer, tokenBuffer);
+      secretBytes.length === tokenBytes.length && timingSafeEqual(secretBytes, tokenBytes);
 
     // Ensure that the request is coming from a trusted source
     if (!isValidToken) {
