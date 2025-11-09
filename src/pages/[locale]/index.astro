@@ -6,20 +6,18 @@ import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { TagFragment, type TagFragmentData } from '~/lib/datocms/commonFragments';
 import { isDraftModeEnabled } from '~/lib/draftMode';
-import { defaultLocale, isSupportedLocale, supportedLocales, type SiteLocale } from '~/lib/locales';
+import { defaultLocale, isSupportedLocale, type SiteLocale } from '~/lib/locales';
 
-export async function getStaticPaths() {
-  return supportedLocales.map((locale) => ({ params: { locale } }));
-}
+export const prerender = false;
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const requestedLocale = Astro.params.locale;
+const localeIsSupported = isSupportedLocale(requestedLocale);
+const locale = (localeIsSupported ? requestedLocale : defaultLocale) as SiteLocale;
 
-if (!isSupportedLocale(requestedLocale)) {
-  return Astro.redirect(`/${defaultLocale}/`);
+if (!localeIsSupported) {
+  return Astro.redirect(`/${locale}/`);
 }
-
-const locale = requestedLocale as SiteLocale;
 
 type HeroBlockRecord = HeroBlockFragmentData & {
   __typename: 'HeroBlockRecord';
