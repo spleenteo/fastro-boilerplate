@@ -14,7 +14,7 @@ scope: A list to describe all helpers, scripts, middlewares used in the project
 
 ## Routing & Preview Glue
 
-- `recordInfo` helpers (`src/lib/datocms/recordInfo.ts`): Maps DatoCMS items to on-site routes and friendly slugs; used by preview/SEO endpoints to build URLs for `Page` and `Article` models.
+- `recordInfo` helpers (`src/lib/datocms/recordInfo.ts`): Maps DatoCMS items (`home_page`, `page`, `article`) to the corresponding on-site routes/locale-aware slugs so preview and SEO endpoints can craft working URLs.
 
 ## Internationalization
 
